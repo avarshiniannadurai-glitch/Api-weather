@@ -1,0 +1,33 @@
+<html>
+    <head>
+
+    </head>
+    <body><h1> Weather Information</h1>
+        <br>
+        <hr>
+        <input type="text" id ="city" placeholder="Enter a name"><br>
+        <button onclick="get()">GetData</button>
+        <div id="result"></div>
+    </body>
+    <script>
+        function get(){
+            let place = document.getElementById("city").value;
+            fetch("https://geocoding-api.open-meteo.com/v1/search?name=Coimbatore&count=5&language=en&format=json").then(response=>response.json()).
+            then(data=>{
+                let longitude = data.results[0].longitude;
+                let latitude=data.results[0].latitude;
+                weather_details(longitude,latitude);
+            }
+           
+        ).catch(error=>console.log(error));
+        }
+        function weather_details(lo,la)
+        {
+            fetch("https://api.open-meteo.com/v1/forecast?latitude=11.0168&longitude=76.9558&current=temperature_2m,relative_humidity_2m,apparent_temperature,weather_code").then(response=>
+            response.json()).then(data=>
+            console.log(data)).catch(error=>
+            console.log(error)
+            )
+        }
+    </script>
+</html>
